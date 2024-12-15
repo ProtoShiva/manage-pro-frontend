@@ -1,11 +1,15 @@
+import Dashboard from "./components/Dashboard"
 import Register from "./components/Register"
-import Shimmer from "./components/Shimmer"
+import { BrowserRouter, Routes, Route } from "react-router"
 
 const App = () => {
   return (
-    <div className="text-blue-500">
-      <Register />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 

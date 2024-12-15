@@ -1,15 +1,40 @@
 import React, { useState } from "react"
 import logoImage from "../asset/Art.png"
+import { checkUserInfoValidity } from "../utils/helper"
 
 const Register = () => {
   const [showLogin, setShowLogin] = useState(false)
+  const [errMessage, setErrMessagge] = useState(null)
   const [userInfo, setUserInfo] = useState({
     userName: "",
     email: "",
     password: "",
   })
 
-  const handleChange = () => {}
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setUserInfo((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      }
+    })
+  }
+
+  const handleSubmit = () => {
+    let res
+    if (showLogin) {
+      res = checkUserInfoValidity(userInfo.email, userInfo.password)
+    } else {
+      res = checkUserInfoValidity(
+        userInfo.email,
+        userInfo.password,
+        userInfo.name
+      )
+    }
+    setErrMessagge(res)
+    if (res) return
+  }
   return (
     <div className="h-screen grid grid-cols-[70%_30%]">
       <div className="flex flex-col items-center bg-customBlue text-white relative">
@@ -39,6 +64,7 @@ const Register = () => {
               type="text"
               className="grow"
               placeholder="Username"
+              name="userName"
               onChange={handleChange}
             />
           </label>
@@ -58,6 +84,7 @@ const Register = () => {
             type="text"
             className="grow"
             placeholder="Email"
+            name="email"
             onChange={handleChange}
           />
         </label>
@@ -78,10 +105,15 @@ const Register = () => {
             type="password"
             className="grow"
             placeholder="Password"
+            name="password"
             onChange={handleChange}
           />
         </label>
-        <button className="btn btn-success w-2/3 rounded-full text-white">
+        <p className="text-red-500 text-lg font-bold py-2">{errMessage}</p>
+        <button
+          className="btn btn-success w-2/3 rounded-full text-white"
+          onClick={handleSubmit}
+        >
           {showLogin ? "Log In" : "Register"}
         </button>
         <p>{showLogin ? "Have no account yet?" : "Have an Account?"}</p>
