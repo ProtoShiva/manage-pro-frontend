@@ -1,40 +1,62 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import logoImage from "../asset/Art.png"
-import { checkUserInfoValidity } from "../utils/helper"
+import { useNavigate } from "react-router-dom"
+import { useFormik } from "formik"
+import { useDispatch, useSelector } from "react-redux"
+import * as Yup from "yup"
+import { registerUserAction } from "../redux/slices/usersSlices.js"
+import { loginUserAction } from "../redux/slices/usersSlices.js"
+
+//yup form schema
+const formSchema = Yup.object({
+  email: Yup.string().required("Email is Required!"),
+  password: Yup.string().required("Password is Required!"),
+  name: Yup.string().required("Name is Required!"),
+})
 
 const Register = () => {
   const [showLogin, setShowLogin] = useState(false)
-  const [errMessage, setErrMessagge] = useState(null)
-  const [userInfo, setUserInfo] = useState({
-    userName: "",
-    email: "",
-    password: "",
-  })
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setUserInfo((prev) => {
-      return {
-        ...prev,
-        [name]: value,
-      }
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  let formik
+
+  if (showLogin) {
+    formik = useFormik({
+      initialValues: {
+        email: "",
+        password: "",
+      },
+      onSubmit: (values) => {
+        dispatch(loginUserAction(values))
+      },
+      validationSchema: formSchema,
+    })
+  } else {
+    formik = useFormik({
+      initialValues: {
+        email: "",
+        name: "",
+        password: "",
+      },
+      onSubmit: (values) => {
+        dispatch(registerUserAction(values))
+      },
+      validationSchema: formSchema,
     })
   }
 
-  const handleSubmit = () => {
-    let res
-    if (showLogin) {
-      res = checkUserInfoValidity(userInfo.email, userInfo.password)
-    } else {
-      res = checkUserInfoValidity(
-        userInfo.email,
-        userInfo.password,
-        userInfo.name
-      )
+  const storeData = useSelector((store) => store?.users)
+
+  const { loading, appErr, serverErr, user } = storeData
+
+  //redirect when user is registered successfully
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard")
     }
-    setErrMessagge(res)
-    if (res) return
-  }
+  }, [user, navigate])
+
   return (
     <div className="h-screen grid grid-cols-[70%_30%]">
       <div className="flex flex-col items-center bg-customBlue text-white relative">
@@ -64,8 +86,9 @@ const Register = () => {
               type="text"
               className="grow"
               placeholder="Username"
-              name="userName"
-              onChange={handleChange}
+              onChange={formik.handleChange("name")}
+              onBlur={formik.handleBlur("name")}
+              value={formik.values.name}
             />
           </label>
         )}
@@ -84,8 +107,9 @@ const Register = () => {
             type="text"
             className="grow"
             placeholder="Email"
-            name="email"
-            onChange={handleChange}
+            value={formik.values.email}
+            onChange={formik.handleChange("email")}
+            onBlur={formik.handleBlur("email")}
           />
         </label>
         <label className="input input-bordered flex items-center gap-2 w-2/3">
@@ -105,14 +129,20 @@ const Register = () => {
             type="password"
             className="grow"
             placeholder="Password"
-            name="password"
-            onChange={handleChange}
+            value={formik.values.password}
+            onChange={formik.handleChange("password")}
+            onBlur={formik.handleBlur("password")}
           />
         </label>
-        <p className="text-red-500 text-lg font-bold py-2">{errMessage}</p>
+        {appErr || serverErr ? (
+          <p className="text-red-500 font-medium mt-4 border rounded-md py-2 bg-red-50">
+            {appErr || serverErr ? `${appErr}` : null}
+          </p>
+        ) : null}
         <button
           className="btn btn-success w-2/3 rounded-full text-white"
-          onClick={handleSubmit}
+          type="submit"
+          onClick={formik.handleSubmit}
         >
           {showLogin ? "Log In" : "Register"}
         </button>
