@@ -4,27 +4,25 @@ import { Link, useNavigate } from "react-router-dom"
 import { useFormik } from "formik"
 import { useDispatch, useSelector } from "react-redux"
 import * as Yup from "yup"
-import { registerUserAction } from "../redux/slices/usersSlices.js"
+import { loginUserAction } from "../redux/slices/usersSlices.js"
 
 //yup form schema
 const formSchema = Yup.object({
   email: Yup.string().required("Email is Required!"),
   password: Yup.string().required("Password is Required!"),
-  name: Yup.string().required("Name is Required!"),
 })
 
-const Register = () => {
+const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   let formik = useFormik({
     initialValues: {
       email: "",
-      name: "",
       password: "",
     },
     onSubmit: (values) => {
-      dispatch(registerUserAction(values))
+      dispatch(loginUserAction(values))
     },
     validationSchema: formSchema,
   })
@@ -52,27 +50,7 @@ const Register = () => {
         </p>
       </div>
       <div className="flex flex-col items-center justify-center gap-8">
-        <h2 className="text-3xl font-semibold text-customBlue">Register</h2>
-
-        <label className="input input-bordered flex items-center gap-2 w-2/3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-4 w-4 opacity-70"
-          >
-            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" />
-          </svg>
-          <input
-            type="text"
-            className="grow"
-            placeholder="Username"
-            onChange={formik.handleChange("name")}
-            onBlur={formik.handleBlur("name")}
-            value={formik.values.name}
-          />
-        </label>
-
+        <h2 className="text-3xl font-semibold text-customBlue">Login</h2>
         <label className="input input-bordered flex items-center gap-2 w-2/3">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -115,7 +93,7 @@ const Register = () => {
           />
         </label>
         {appErr || serverErr ? (
-          <p className="text-red-500 font-medium mt-4 border rounded-md py-2 bg-red-50">
+          <p className="text-red-500 font-medium mt-4 rounded-md py-2">
             {appErr || serverErr ? `${appErr}` : null}
           </p>
         ) : null}
@@ -124,18 +102,18 @@ const Register = () => {
           type="submit"
           onClick={formik.handleSubmit}
         >
-          Register
+          Log In
         </button>
-        <p>Have an Account?</p>
+        <p>Have no account yet?</p>
         <Link
-          to={"/login"}
+          to={"/register"}
           className="btn btn-outline btn-success w-2/3 rounded-full"
         >
-          Log In
+          Register
         </Link>
       </div>
     </div>
   )
 }
 
-export default Register
+export default Login

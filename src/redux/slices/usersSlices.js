@@ -42,8 +42,9 @@ export const loginUserAction = createAsyncThunk(
     const userFromState = getState()?.users?.userAuth
 
     try {
+      console.log("object")
       const { data } = await axios.post(
-        `${baseURL}/api/users/login`,
+        `${baseURL}/api/user/login`,
         user,
         config
       )
