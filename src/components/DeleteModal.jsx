@@ -4,12 +4,11 @@ const DeleteModal = () => {
   return (
     <dialog id="my_modal_2" className="modal">
       <div className="modal-box">
-        <h3 className="font-bold text-lg">Hello!</h3>
-        <p className="py-4">Press ESC key or click the button below to close</p>
+        <p className="py-4 text-xl">Are you Sure you want to Delete?</p>
         <div className="modal-action">
-          <form method="dialog">
-            {/* if there is a button in form, it will close the modal */}
-            <button className="btn">Close</button>
+          <form method="dialog" className="flex gap-3">
+            <button className="btn btn-error">Yes, Delete</button>
+            <button className="btn btn-outline btn-success">Cancel</button>
           </form>
         </div>
       </div>
