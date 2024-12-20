@@ -4,7 +4,7 @@ import CheckList from "./CheckList"
 const TodoModal = () => {
   return (
     <div>
-      <dialog id="my_modal_2" className="modal">
+      <dialog id="my_modal_1" className="modal">
         <div className="modal-box flex flex-col gap-5">
           <div>
             <h3 className="mb-3">Title</h3>
@@ -44,7 +44,12 @@ const TodoModal = () => {
           </div>
 
           <div className="flex justify-between">
-            <button className="btn btn-outline">Select Due Date</button>
+            <input
+              className="btn btn-outline"
+              type="date"
+              placeholderText="Select Due Date"
+            />
+
             <div className="flex gap-2">
               <button className="btn btn-outline btn-secondary">Cancel</button>
               <button className="btn btn-outline btn-accent">Save</button>

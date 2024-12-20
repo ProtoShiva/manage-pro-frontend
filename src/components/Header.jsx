@@ -3,7 +3,7 @@ import { IoIosArrowDown } from "react-icons/io"
 
 const Header = () => {
   return (
-    <div>
+    <div className="sticky left-0">
       <div className="flex justify-between items-center mt-2">
         <p className="text-xl font-bold">Welcome! Himanshu</p>
         <p className="text-xl">12th Jan, 2024</p>

@@ -4,9 +4,9 @@ import TodoBoard from "./TodoBoard"
 
 const MainContainer = () => {
   return (
-    <div className="w-[88%] p-2">
+    <div className="p-2 w-[88%] h-screen overflow-x-scroll">
       <Header />
-      <div className="grid grid-cols-4">
+      <div className="flex gap-2 min-w-fit">
         <TodoBoard />
         <TodoBoard />
         <TodoBoard />

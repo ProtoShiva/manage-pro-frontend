@@ -3,6 +3,7 @@ import { FaRegClipboard } from "react-icons/fa"
 import { IoLogoDropbox, IoLogOut } from "react-icons/io5"
 import { MdOutlineAnalytics } from "react-icons/md"
 import { RiSettings2Line } from "react-icons/ri"
+import DeleteModal from "./DeleteModal"
 const Sidebar = () => {
   return (
     <div className="w-[12%] h-screen flex flex-col justify-between p-2">
@@ -36,8 +37,13 @@ const Sidebar = () => {
         <span>
           <IoLogOut />
         </span>
-        <button>Logout</button>
+        <button
+          onClick={() => document.getElementById("my_modal_2").showModal()}
+        >
+          Logout
+        </button>
       </footer>
+      <DeleteModal />
     </div>
   )
 }
