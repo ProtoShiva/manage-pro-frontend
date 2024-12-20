@@ -10,12 +10,26 @@ const Header = () => {
       </div>
       <div className="mt-4 flex justify-between">
         <h1 className="font-bold text-xl">Board</h1>
-        <p className="flex gap-2 items-center">
-          This Week
-          <span className="cursor-pointer">
+        <div className="dropdown dropdown-left dropdown-hover">
+          <div tabIndex={0} role="button" className="btn m-1 flex gap-2">
+            <p>This week</p>
             <IoIosArrowDown />
-          </span>
-        </p>
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+          >
+            <li>
+              <a>Today</a>
+            </li>
+            <li>
+              <a>This Week</a>
+            </li>
+            <li>
+              <a>This Month</a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   )
