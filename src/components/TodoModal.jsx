@@ -47,7 +47,7 @@ const TodoModal = () => {
             <input
               className="btn btn-outline"
               type="date"
-              placeholderText="Select Due Date"
+              placeholder="Select Due Date"
             />
 
             <div className="flex gap-2">
