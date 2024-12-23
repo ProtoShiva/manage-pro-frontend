@@ -1,16 +1,13 @@
 import logoImage from "../asset/Art.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { registerSchema } from "../utils/formValidation"
 import { useFormik } from "formik"
-
-const onSubmit = async (values, actions) => {
-  console.log(values)
-  console.log(actions)
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  actions.resetForm()
-}
+import { createUser } from "../apis/auth"
+import { useState } from "react"
 
 const Register = () => {
+  const navigate = useNavigate()
+  const [error, setError] = useState("")
   const {
     values,
     errors,
@@ -26,7 +23,16 @@ const Register = () => {
       password: "",
     },
     validationSchema: registerSchema,
-    onSubmit,
+    onSubmit: async (values, actions) => {
+      const response = await createUser(values)
+      if (response.success) {
+        navigate("/dashboard")
+      } else {
+        setError(response.message)
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      actions.resetForm()
+    },
   })
   return (
     <div className="h-screen grid grid-cols-[70%_30%]">
@@ -46,7 +52,11 @@ const Register = () => {
           autoComplete="off"
           className="w-full flex flex-col items-center gap-8 justify-center"
         >
-          <label className="input input-bordered flex items-center gap-2 w-2/3">
+          <label
+            className={`${
+              errors.name && touched.name ? "border border-red-500" : ""
+            } input input-bordered flex items-center gap-2 w-2/3`}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
@@ -126,6 +136,7 @@ const Register = () => {
           {errors.password && touched.password && (
             <p className="text-red-500">{errors.password}</p>
           )}
+          {error && <p className="text-red-500">{error}</p>}
           <button
             className="btn btn-success w-2/3 rounded-full text-white"
             disabled={isSubmitting}
