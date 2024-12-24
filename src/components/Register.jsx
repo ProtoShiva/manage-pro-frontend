@@ -6,8 +6,13 @@ import { createUser } from "../apis/auth"
 import { useState } from "react"
 
 const Register = () => {
+<<<<<<< HEAD
   const [error, setError] = useState("")
   const navigate = useNavigate()
+=======
+  const navigate = useNavigate()
+  const [error, setError] = useState("")
+>>>>>>> b3dfd09bdd2d5ae4fafaf56877a60b8cd00792a8
   const {
     values,
     errors,
@@ -53,7 +58,11 @@ const Register = () => {
           autoComplete="off"
           className="w-full flex flex-col items-center gap-8 justify-center"
         >
-          <label className="input input-bordered flex items-center gap-2 w-2/3">
+          <label
+            className={`${
+              errors.name && touched.name ? "border border-red-500" : ""
+            } input input-bordered flex items-center gap-2 w-2/3`}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 16 16"
@@ -133,7 +142,10 @@ const Register = () => {
           {errors.password && touched.password && (
             <p className="text-red-500">{errors.password}</p>
           )}
+<<<<<<< HEAD
 
+=======
+>>>>>>> b3dfd09bdd2d5ae4fafaf56877a60b8cd00792a8
           {error && <p className="text-red-500">{error}</p>}
           <button
             className="btn btn-success w-2/3 rounded-full text-white"
