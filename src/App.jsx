@@ -5,10 +5,23 @@ import Login from "./components/Login"
 import Analytics from "./components/Analytics"
 import Settings from "./components/Settings"
 import ProtectedRoute from "./components/ProtectedRoute"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect } from "react"
+import { getUserDetails } from "./apis/auth"
+import { addUser, logStatus } from "./redux/slices/userSlices"
 
 const App = () => {
+  const dispatch = useDispatch()
+  async function getUser() {
+    const res = await getUserDetails()
+    dispatch(addUser(res.user))
+    dispatch(logStatus())
+  }
   const isLoggedIn = useSelector((store) => store.user.isLoggedIn)
+
+  useEffect(() => {
+    getUser()
+  }, [])
   return (
     <BrowserRouter>
       <Routes>

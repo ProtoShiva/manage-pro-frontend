@@ -19,6 +19,16 @@ export const signInUser = async (userInfo) => {
   }
 }
 
+export const logoutUser = async () => {
+  try {
+    const { data } = await client.post("user/logout")
+    return data
+  } catch (error) {
+    const { response } = error
+    return response.data
+  }
+}
+
 export const getUserDetails = async () => {
   try {
     const { data } = await client.get("user/")

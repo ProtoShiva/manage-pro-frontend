@@ -26,7 +26,7 @@ const TodoCard = () => {
               </li>
               <li
                 onClick={() =>
-                  document.getElementById("my_modal_2").showModal()
+                  document.getElementById("my_modal_3").showModal()
                 }
               >
                 <a>Delete</a>

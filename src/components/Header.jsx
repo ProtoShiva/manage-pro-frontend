@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className="sticky left-0">
       <div className="flex justify-between items-center mt-2">
-        <p className="text-xl font-bold">Welcome! {userName.name}</p>
+        <p className="text-xl font-bold">Welcome! {userName?.name}</p>
         <p className="text-xl">12th Jan, 2024</p>
       </div>
       <div className="mt-4 flex justify-between">

@@ -2,12 +2,15 @@ import logoImage from "../asset/Art.png"
 import { Link, useNavigate } from "react-router-dom"
 import { registerSchema } from "../utils/formValidation"
 import { useFormik } from "formik"
-import { createUser } from "../apis/auth"
+import { createUser, getUserDetails } from "../apis/auth"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addUser, logStatus } from "../redux/slices/userSlices"
 
 const Register = () => {
   const [error, setError] = useState("")
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const {
     values,
     errors,
@@ -26,6 +29,9 @@ const Register = () => {
     onSubmit: async (values, actions) => {
       const response = await createUser(values)
       if (response.success) {
+        const res = await getUserDetails()
+        dispatch(addUser(res.user))
+        dispatch(logStatus())
         navigate("/dashboard")
       } else {
         setError(response.message)

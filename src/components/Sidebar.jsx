@@ -1,10 +1,11 @@
-import React from "react"
+import React, { useState } from "react"
 import { FaRegClipboard } from "react-icons/fa"
 import { IoLogoDropbox, IoLogOut } from "react-icons/io5"
 import { MdOutlineAnalytics } from "react-icons/md"
 import { RiSettings2Line } from "react-icons/ri"
 import DeleteModal from "./DeleteModal"
 import { Link } from "react-router-dom"
+import LogoutModal from "./LogoutModal"
 const Sidebar = () => {
   return (
     <div className="w-[12%] h-screen flex flex-col justify-between p-2">
@@ -53,6 +54,7 @@ const Sidebar = () => {
           Logout
         </button>
       </footer>
+      <LogoutModal />
       <DeleteModal />
     </div>
   )

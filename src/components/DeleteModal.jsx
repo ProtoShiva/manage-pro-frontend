@@ -2,7 +2,7 @@ import React from "react"
 
 const DeleteModal = () => {
   return (
-    <dialog id="my_modal_2" className="modal">
+    <dialog id="my_modal_3" className="modal">
       <div className="modal-box">
         <p className="py-4 text-xl">Are you Sure you want to Delete?</p>
         <div className="modal-action">
