@@ -6,13 +6,9 @@ import { signInUser } from "../apis/auth"
 import { useState } from "react"
 
 const Login = () => {
-<<<<<<< HEAD
   const [error, setError] = useState("")
   const navigate = useNavigate()
-=======
-  const navigate = useNavigate()
-  const [error, setError] = useState("")
->>>>>>> b3dfd09bdd2d5ae4fafaf56877a60b8cd00792a8
+
   const {
     values,
     errors,

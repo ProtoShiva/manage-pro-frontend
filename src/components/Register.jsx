@@ -6,13 +6,8 @@ import { createUser } from "../apis/auth"
 import { useState } from "react"
 
 const Register = () => {
-<<<<<<< HEAD
   const [error, setError] = useState("")
   const navigate = useNavigate()
-=======
-  const navigate = useNavigate()
-  const [error, setError] = useState("")
->>>>>>> b3dfd09bdd2d5ae4fafaf56877a60b8cd00792a8
   const {
     values,
     errors,
@@ -142,10 +137,6 @@ const Register = () => {
           {errors.password && touched.password && (
             <p className="text-red-500">{errors.password}</p>
           )}
-<<<<<<< HEAD
-
-=======
->>>>>>> b3dfd09bdd2d5ae4fafaf56877a60b8cd00792a8
           {error && <p className="text-red-500">{error}</p>}
           <button
             className="btn btn-success w-2/3 rounded-full text-white"
