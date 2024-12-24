@@ -1,16 +1,13 @@
 import logoImage from "../asset/Art.png"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { registerSchema } from "../utils/formValidation"
 import { useFormik } from "formik"
-
-const onSubmit = async (values, actions) => {
-  console.log(values)
-  console.log(actions)
-  await new Promise((resolve) => setTimeout(resolve, 1000))
-  actions.resetForm()
-}
+import { createUser } from "../apis/auth"
+import { useState } from "react"
 
 const Register = () => {
+  const [error, setError] = useState("")
+  const navigate = useNavigate()
   const {
     values,
     errors,
@@ -26,8 +23,18 @@ const Register = () => {
       password: "",
     },
     validationSchema: registerSchema,
-    onSubmit,
+    onSubmit: async (values, actions) => {
+      const response = await createUser(values)
+      if (response.success) {
+        navigate("/dashboard")
+      } else {
+        setError(response.message)
+      }
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+      actions.resetForm()
+    },
   })
+
   return (
     <div className="h-screen grid grid-cols-[70%_30%]">
       <div className="flex flex-col items-center bg-customBlue text-white relative">
@@ -126,6 +133,8 @@ const Register = () => {
           {errors.password && touched.password && (
             <p className="text-red-500">{errors.password}</p>
           )}
+
+          {error && <p className="text-red-500">{error}</p>}
           <button
             className="btn btn-success w-2/3 rounded-full text-white"
             disabled={isSubmitting}
