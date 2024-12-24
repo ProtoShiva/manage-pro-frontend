@@ -5,7 +5,7 @@ import { useFormik } from "formik"
 import { createUser, getUserDetails } from "../apis/auth"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { addUser, logStatus } from "../redux/slices/userSlices"
+import { addUser } from "../redux/slices/userSlices"
 
 const Register = () => {
   const [error, setError] = useState("")
@@ -31,7 +31,6 @@ const Register = () => {
       if (response.success) {
         const res = await getUserDetails()
         dispatch(addUser(res.user))
-        dispatch(logStatus())
         navigate("/dashboard")
       } else {
         setError(response.message)

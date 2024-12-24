@@ -5,7 +5,7 @@ import { loginSchema } from "../utils/formValidation"
 import { getUserDetails, signInUser } from "../apis/auth"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { addUser, logStatus } from "../redux/slices/userSlices"
+import { addUser } from "../redux/slices/userSlices"
 
 const Login = () => {
   const [error, setError] = useState("")
@@ -31,7 +31,6 @@ const Login = () => {
       if (response.success) {
         const res = await getUserDetails()
         dispatch(addUser(res.user))
-        dispatch(logStatus())
         navigate("/dashboard")
       } else {
         setError(response.message)
