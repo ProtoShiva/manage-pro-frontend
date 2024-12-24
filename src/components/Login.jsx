@@ -2,12 +2,15 @@ import { useFormik } from "formik"
 import logoImage from "../asset/Art.png"
 import { Link, useNavigate } from "react-router-dom"
 import { loginSchema } from "../utils/formValidation"
-import { signInUser } from "../apis/auth"
+import { getUserDetails, signInUser } from "../apis/auth"
 import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addUser, logStatus } from "../redux/slices/userSlices"
 
 const Login = () => {
   const [error, setError] = useState("")
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const {
     values,
@@ -26,6 +29,9 @@ const Login = () => {
     onSubmit: async (values, actions) => {
       const response = await signInUser(values)
       if (response.success) {
+        const res = await getUserDetails()
+        dispatch(addUser(res.user))
+        dispatch(logStatus())
         navigate("/dashboard")
       } else {
         setError(response.message)

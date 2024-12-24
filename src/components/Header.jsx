@@ -1,11 +1,13 @@
 import React from "react"
 import { IoIosArrowDown } from "react-icons/io"
+import { useSelector } from "react-redux"
 
 const Header = () => {
+  const userName = useSelector((store) => store.user.userDetails)
   return (
     <div className="sticky left-0">
       <div className="flex justify-between items-center mt-2">
-        <p className="text-xl font-bold">Welcome! Himanshu</p>
+        <p className="text-xl font-bold">Welcome! {userName.name}</p>
         <p className="text-xl">12th Jan, 2024</p>
       </div>
       <div className="mt-4 flex justify-between">

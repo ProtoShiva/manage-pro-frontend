@@ -18,3 +18,13 @@ export const signInUser = async (userInfo) => {
     return response.data
   }
 }
+
+export const getUserDetails = async () => {
+  try {
+    const { data } = await client.get("user/")
+    return data
+  } catch (error) {
+    const { response } = error
+    return response.data
+  }
+}

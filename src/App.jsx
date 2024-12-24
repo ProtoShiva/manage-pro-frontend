@@ -5,9 +5,10 @@ import Login from "./components/Login"
 import Analytics from "./components/Analytics"
 import Settings from "./components/Settings"
 import ProtectedRoute from "./components/ProtectedRoute"
+import { useSelector } from "react-redux"
 
 const App = () => {
-  const isLoggedIn = true
+  const isLoggedIn = useSelector((store) => store.user.isLoggedIn)
   return (
     <BrowserRouter>
       <Routes>
