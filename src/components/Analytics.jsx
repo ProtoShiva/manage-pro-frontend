@@ -3,7 +3,7 @@ import Sidebar from "./Sidebar"
 
 const Analytics = () => {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-12">
       <Sidebar />
       <div>
         <div className="overflow-x-auto">
@@ -22,21 +22,21 @@ const Analytics = () => {
               <tr className="bg-base-200">
                 <th>Backlog</th>
                 <td>4</td>
-                <td>High Priority</td>
+                <td className="font-bold">High Priority</td>
                 <td>2</td>
               </tr>
               {/* row 2 */}
               <tr>
                 <th>To-do</th>
                 <td>6</td>
-                <td>Moderate Priority</td>
+                <td className="font-bold">Moderate Priority</td>
                 <td>12</td>
               </tr>
               {/* row 3 */}
               <tr>
                 <th>In-Progress</th>
                 <td>4</td>
-                <td>Low Priority</td>
+                <td className="font-bold">Low Priority</td>
                 <td>2</td>
               </tr>
               <tr>

@@ -3,7 +3,6 @@ import { FaRegClipboard } from "react-icons/fa"
 import { IoLogoDropbox, IoLogOut } from "react-icons/io5"
 import { MdOutlineAnalytics } from "react-icons/md"
 import { RiSettings2Line } from "react-icons/ri"
-import DeleteModal from "./DeleteModal"
 import { Link } from "react-router-dom"
 import LogoutModal from "./LogoutModal"
 const Sidebar = () => {
@@ -33,20 +32,11 @@ const Sidebar = () => {
             </span>
             Analytics
           </Link>
-          <Link
-            to="/settings"
-            className="cursor-pointer flex gap-2 items-center"
-          >
-            <span>
-              <RiSettings2Line />
-            </span>
-            Settings
-          </Link>
         </ul>
       </main>
-      <footer className="flex gap-2 items-center">
+      <footer className="flex gap-2 text-xl justify-center text-red-500 items-center">
         <span>
-          <IoLogOut />
+          <IoLogOut className="cursor-pointer size-6" />
         </span>
         <button
           onClick={() => document.getElementById("my_modal_2").showModal()}
@@ -55,7 +45,6 @@ const Sidebar = () => {
         </button>
       </footer>
       <LogoutModal />
-      <DeleteModal />
     </div>
   )
 }
